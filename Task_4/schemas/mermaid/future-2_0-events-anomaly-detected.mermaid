@@ -1,0 +1,27 @@
+---
+title: "Event Storming: Аномалия обнаружена во время мониторинга"
+---
+flowchart TD
+    subgraph STREAMING[Streaming Domain]
+        PROC[Telemetry Processing Context]
+        ALERT[Anomaly Detection Context]
+    end
+
+    subgraph MEDICINE[Medicine Domain]
+        REC[Medical Records Context]
+        EMERG[Emergency Context]
+    end
+
+    subgraph CLINIC[Clinic Domain]
+        NOTIF[Notification Context]
+        VISIT[Patient Visit Context]
+    end
+
+    PROC -->|TelemetryReceived| ALERT
+    ALERT -->|AnomalyDetected| ALERT
+
+    ALERT -.->|AnomalyDetected| REC
+    ALERT -.->|AnomalyDetected| EMERG
+    ALERT -.->|AnomalyDetected| NOTIF
+
+    NOTIF -->|NotifyDoctor| VISIT
