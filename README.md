@@ -44,3 +44,10 @@
 ![future-2_0-events-payment-completed.png](Task_4/schemas/future-2_0-events-payment-completed.png)
 
 [Task_4](Task_4/)
+
+## Задание 5. Проектирование технологического стека и расчёт стоимости
+[future-2_0-tech-radar.md](Task_5/future-2_0-tech-radar.md)
+
+[future-2_0-tco-analysis.md](Task_5/future-2_0-tco-analysis.md)
+
+[future-2_0-roadmap.md](Task_5/future-2_0-roadmap.md)
