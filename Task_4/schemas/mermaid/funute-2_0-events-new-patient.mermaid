@@ -1,0 +1,25 @@
+---
+title: "Event Storming: Зарегистрирован новый пациент"
+---
+flowchart TD
+    subgraph CLINIC[Clinic Domain]
+        REG[Patient Registration Context]
+    end
+
+    subgraph FINTECH[FinTech Domain]
+        CUST[Customer Profile Context]
+        PAY[Payment Context]
+        CREDIT[Credit Context]
+    end
+
+    subgraph MEDICINE[Medicine Domain]
+        MED[Medical Records Context]
+    end
+
+    REG -.->|PatientRegistered| CUST
+    REG -.->|PatientRegistered| MED
+
+    CUST -->|CreateDebitAccount| PAY
+    CUST -->|CheckCreditHistory| CREDIT
+
+    MED -->|CreateEmptyMedicalRecord| MED

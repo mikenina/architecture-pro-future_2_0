@@ -1,0 +1,30 @@
+---
+title: "Event Storming: Пациент оплатил приём"
+---
+flowchart TD
+    subgraph FINTECH[FinTech Domain]
+        GATE[Payment Gateway Context]
+        PROC[Payment Processing Context]
+        VERIFY[Payment Verification Context]
+    end
+
+    subgraph CLINIC[Clinic Domain]
+        VISIT[Patient Visit Context]
+        NOTIF[Notification Context]
+    end
+
+    subgraph MEDICINE[Medicine Domain]
+        REC[Medical Records Context]
+        BILL[Billing Context]
+    end
+
+    GATE -->|PaymentReceived| PROC
+    PROC -->|VerifyPayment| VERIFY
+    VERIFY -->|PaymentConfirmed| PROC
+
+    PROC -.->|PaymentCompleted| VISIT
+    PROC -.->|PaymentCompleted| NOTIF
+    PROC -.->|PaymentCompleted| REC
+
+    REC -->|AddPaymentRecord| REC
+    REC -->|UpdatePaymentStatus| BILL

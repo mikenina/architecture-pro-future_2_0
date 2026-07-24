@@ -1,0 +1,32 @@
+---
+title: "Event Storming: Холтер-мониторинг установлен пациенту"
+---
+flowchart TD
+    subgraph CLINIC[Clinic Domain]
+        APP[Appointment Context]
+        INV[Inventory Context]
+    end
+
+    subgraph FINTECH[FinTech Domain]
+        PAY[Payment Context]
+    end
+
+    subgraph STREAMING[Streaming Domain]
+        PREP[Telemetry Preparation Context]
+        PROC[Telemetry Processing Context]
+    end
+
+    subgraph MEDICINE[Medicine Domain]
+        REC[Medical Records Context]
+    end
+
+    APP -.->|HolterAssigned| INV
+    APP -.->|HolterAssigned| PAY
+    APP -.->|HolterAssigned| PREP
+    APP -.->|HolterAssigned| REC
+
+    INV -->|ReserveDevice| INV
+
+    PREP -->|CreateTelemetrySession| PROC
+
+    PROC -.->|partial replicate: TelemetryData| REC
